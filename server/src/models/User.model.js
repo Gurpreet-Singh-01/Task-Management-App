@@ -41,7 +41,7 @@ userSchema.methods.isPasswordCorrect = async function (password) {
 };
 
 // JWT TOKENS
-userSchema.methods.accessToken = function () {
+userSchema.methods.generateAccessToken = function () {
   return JWT.sign(
     { id: this._id, username: this.username },
     process.env.ACCESS_TOKEN_JWT_SECRET,
@@ -49,7 +49,7 @@ userSchema.methods.accessToken = function () {
   );
 };
 
-userSchema.methods.refreshToken = function () {
+userSchema.methods.generateRefreshToken = function () {
   return JWT.sign({ id: this._id }, process.env.REFRESH_TOKEN_JWT_SECRET, {
     expiresIn: "3d",
   });
