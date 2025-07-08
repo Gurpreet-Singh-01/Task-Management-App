@@ -138,13 +138,14 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
       incomingRefreshToken,
       process.env.REFRESH_TOKEN_JWT_SECRET
     );
+    console.log(decodedToken);
     if (!decodedToken) {
       res.clearCookie("refreshToken", COOKIE_OPTIONS);
       res.clearCookie("accessToken", COOKIE_OPTIONS);
       throw new APIError(401, "Unauthorized, invalid refresh token");
     }
 
-    const user = await User.findById(decodedToken._id);
+    const user = await User.findById(decodedToken.id);
     if (!user) {
       res.clearCookie("refreshToken", COOKIE_OPTIONS);
       res.clearCookie("accessToken", COOKIE_OPTIONS);

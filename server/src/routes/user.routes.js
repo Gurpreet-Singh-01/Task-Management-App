@@ -4,7 +4,7 @@ const verifyJWT  = require('../middlewares/authMiddleware')
 
 router.post('/login',login)
 router.post('/signup',signup)
-router.get('/logout',logout)
+router.get('/logout',verifyJWT,logout)
 router.post('/refresh-token', refreshAccessToken)
 router.get('/me', verifyJWT, getUser);
 
