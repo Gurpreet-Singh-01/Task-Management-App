@@ -1,4 +1,4 @@
-const { Schmea, model, Schema } = require("mongoose");
+const { model, Schema } = require("mongoose");
 
 const TaskSchema = new Schema(
   {

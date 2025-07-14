@@ -47,7 +47,7 @@ const updateTask = asyncHandler(async (req, res) => {
   if (!id) throw new APIError(400, "Id is required");
 
   const { title, description, status } = req.body;
-  const task = await Task.find({ id, user: req.user._id });
+  const task = await Task.findOne({ _id:id, user: req.user._id });
   if (!task) {
     throw new APIError(404, "Task not found");
   }
@@ -65,7 +65,7 @@ const deleteTask = asyncHandler(async (req, res) => {
   const { id } = req.params;
   if (!id) throw new APIError(400, "Id is required");
 
-  const task = await Task.findOneAndDelete({ id, user: req.user._id });
+  const task = await Task.findOneAndDelete({ _id:id, user: req.user._id });
   if (!task) {
     throw new APIError(404, "Task not found");
   }
@@ -78,7 +78,7 @@ const deleteTask = asyncHandler(async (req, res) => {
 const uploadAttachment = asyncHandler(async (req, res) => {
   const { id } = req.params;
   if (!id) throw new APIError(400, "Id is required");
-  const task = await Task.find({ _id: id, user: req.user._id });
+  const task = await Task.findOne({ _id: id, user: req.user._id });
   if (!task) throw new APIError(404, "Task not found");
   if (!req.file) throw new APIError(400, "No file uploaded");
   task.attachment = {
@@ -100,7 +100,7 @@ const uploadAttachment = asyncHandler(async (req, res) => {
 // Get attachment
 const getAttachment = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const task = await Task.find({ _id: id, user: req.user?._id });
+  const task = await Task.findOne({ _id: id, user: req.user?._id });
   if (!task || !task.attachment.data)
     throw new APIError(404, "No Attachment found");
   res.set("Content-Type", task.attachment.contentType);

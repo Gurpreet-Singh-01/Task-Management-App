@@ -17,5 +17,5 @@ router.get("/", getAllTasks);
 router.get("/:id/attachment", getAttachment);
 router.post("/:id/attachment", upload.single("attachment"), uploadAttachment);
 router.get("/search", searchTasks);
-router.patch("/search", updateTask);
+router.patch("/:id", updateTask);
 module.exports = router;
