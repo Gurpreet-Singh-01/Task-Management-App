@@ -7,9 +7,9 @@ const upload = multer({
         const fileTypes = /jpeg|jpg|png/;
         const mimetype = fileTypes.test(file.mimetype);
         if(mimetype) {
-            cb(null, true);
+            return cb(null, true);
         }
-        cb(new Error('Only .jpeg, .jpg, and .png files are allowed!'));
+        return cb(new Error('Only .jpeg, .jpg, and .png files are allowed!'));
     }
 })
 
